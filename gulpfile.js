@@ -1,15 +1,30 @@
 var gulp = require('gulp');// check version, but should be a global install with npm
 var sass = require('gulp-sass');
-var watch = require('gulp-watch');
+//var watch = require('gulp-watch');
 
 
-gulp.task('sass', function(){
+// gulp.task('sass', function(){
+//   return gulp.src('./assets/sass/**/*.scss')
+//           .pipe(sass().on('error', sass.logError))
+//           .pipe(gulp.dest('./build/css'));
+// });
+//
+//
+// gulp.task('default', ['sass'], function() {
+//     return gulp.watch('./assets/sass/**/*.scss', ['sass']);
+// });
+//
+//
+function sass(){
   return gulp.src('./assets/sass/**/*.scss')
           .pipe(sass().on('error', sass.logError))
           .pipe(gulp.dest('./build/css'));
-});
+}
 
+function watch(cb){
+    gulp.watch('./assets/sass/**/*.scss', sass);
+    cb();
+}
 
-gulp.task('default', ['sass'], function() {
-    return gulp.watch('./assets/sass/**/*.scss', ['sass']);
-});
+module.exports.sass = sass;
+module.exports.watch = watch;
